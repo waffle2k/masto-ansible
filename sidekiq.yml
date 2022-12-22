@@ -5,9 +5,9 @@
     - role: sidekiq
   vars:
     sidekiq:
-      - name: ingress
+      - name: ingresspush
         q: [ '-q', 'ingress', '-q', 'push',  ]
-      - name:
+      - name: defaultpull
         q: [ '-q', 'pull', '-q', 'default' ]
 
   handlers:
