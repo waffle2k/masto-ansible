@@ -1,0 +1,12 @@
+---
+- name: Configure yttrx webapp environment
+  hosts: [webapp]
+  roles:
+    - role: webapp
+
+  handlers:
+  - name: Re-up docker containers
+    command: docker-compose up -d
+    args:
+      chdir: /home/mastodon/live
+    listen: "docker-compose up"

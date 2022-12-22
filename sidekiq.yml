@@ -1,0 +1,20 @@
+---
+- name: Configure yttrx sidekiq environment
+  hosts: [sidekiq]
+  roles:
+    - role: sidekiq
+  vars:
+    sidekiq:
+      - name: ingress
+        q: [ '-q', 'ingress', '-q', 'push',  ]
+      - name:
+        q: [ '-q', 'pull', '-q', 'default' ]
+
+  handlers:
+  - name: Re-up docker containers
+    command: docker-compose up -d --remove-orphans
+    args:
+      chdir: /home/mastodon/live
+    listen: "docker-compose up"
+
+

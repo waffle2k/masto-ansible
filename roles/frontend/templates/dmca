@@ -1,0 +1,4 @@
+# Example
+#location = /cache/media_attachments/files/109/437/372/880/064/218/original/3260dbbf5bbdce0e.jpg {
+#  deny all;
+#}

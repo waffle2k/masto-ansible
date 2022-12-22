@@ -1,0 +1,90 @@
+server {
+  listen 80;
+  listen [::]:80;
+  server_name {{ ENV_PRODUCTION['S3_ALIAS_HOST'] }};
+  root /var/www/html;
+  # Useful for Let's Encrypt
+  location /.well-known/acme-challenge/ { allow all; }
+  location / { return 301 https://$host$request_uri; }
+}
+
+log_format files_cache '$remote_addr - $upstream_cache_status [$time_local]  '
+                    '"$request" $status $body_bytes_sent '
+                    '"$http_referer" "$http_user_agent"';
+
+proxy_cache_path /data/nginx/cache keys_zone=mycache:50m inactive=3d;
+
+server {
+  listen 443 ssl http2;
+  listen [::]:443 ssl http2;
+  server_name {{ ENV_PRODUCTION['S3_ALIAS_HOST'] }};
+  root /var/www/html;
+
+  include /etc/nginx/cloudflare;
+
+  ssl_certificate     /etc/letsencrypt/live/{{ ENV_PRODUCTION['S3_ALIAS_HOST'] }}/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/{{ ENV_PRODUCTION['S3_ALIAS_HOST'] }}/privkey.pem;
+
+  access_log /var/log/nginx/{{ ENV_PRODUCTION['S3_ALIAS_HOST'] }}.access.log files_cache;
+  error_log /var/log/nginx/{{ ENV_PRODUCTION['S3_ALIAS_HOST'] }}.error.log;
+
+  proxy_cache mycache;
+  keepalive_timeout 30;
+
+  # Don't allow directory listings
+  location ~ ^.*/$ {
+    deny all;
+  }
+
+  include /etc/nginx/dmca;
+
+  location ~ .+ {
+    try_files $uri @s3;
+  }
+
+  set $s3_backend '{{ ENV_PRODUCTION['S3_HOSTNAME'] }}';
+
+  location @s3 {
+    limit_except GET {
+      deny all;
+    }
+
+    resolver 8.8.8.8;
+    proxy_set_header Host yttrx.sfo3.digitaloceanspaces.com;
+    proxy_set_header Connection '';
+    proxy_set_header Authorization '';
+    proxy_hide_header Set-Cookie;
+    proxy_hide_header 'Access-Control-Allow-Origin';
+    proxy_hide_header 'Access-Control-Allow-Methods';
+    proxy_hide_header 'Access-Control-Allow-Headers';
+    #proxy_hide_header x-amz-id-2;
+    #proxy_hide_header x-amz-request-id;
+    #proxy_hide_header x-amz-meta-server-side-encryption;
+    #proxy_hide_header x-amz-server-side-encryption;
+    #proxy_hide_header x-amz-bucket-region;
+    #proxy_hide_header x-amzn-requestid;
+    proxy_ignore_headers Set-Cookie;
+    proxy_pass $s3_backend$uri;
+    #proxy_intercept_errors off;
+    # turn this on so that we can capture and redirect bad links to the main 404 page
+    proxy_intercept_errors on;
+
+    #proxy_cache_valid 200 48h;
+    proxy_cache_valid 48h;
+    proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
+    proxy_cache_lock on;
+    proxy_cache_key $uri;
+
+    # Download stale data only if it has been modified on origin 
+    proxy_cache_revalidate off;
+
+    expires 30d;
+    add_header Pragma public;
+    add_header Cache-Control "public";
+    add_header 'Access-Control-Allow-Origin' '*';
+    add_header X-Cache-Status $upstream_cache_status;
+
+    error_page 403 https://{{ ENV_PRODUCTION['LOCAL_DOMAIN'] }}/404.html;
+    error_page 404 https://{{ ENV_PRODUCTION['LOCAL_DOMAIN'] }}/404.html;
+  }
+}

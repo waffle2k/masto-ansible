@@ -1,0 +1,20 @@
+
+  sidekiq-mailers:
+    image: tootsuite/mastodon:{{ MASTODON_VERSION }}
+    restart: always
+    env_file: .env.production
+    command: bundle exec sidekiq -q mailers -c 5
+    depends_on:
+      - pgbouncer
+    networks:
+      - external_network
+      - internal_network
+    volumes:
+      - ./public/system:/mastodon/public/system
+      - ./config:/opt/mastodon/config
+    environment:
+      - 'DB_POOL=25'
+    healthcheck:
+      test: ['CMD-SHELL', "ps aux | grep '[s]idekiq\ 6' || false"]
+
+

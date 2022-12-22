@@ -1,0 +1,23 @@
+services:
+{% for SK in sidekiq %}
+  sidekiq-{{ SK['name'] }}:
+    image: tootsuite/mastodon:{{ MASTODON_VERSION }}
+    restart: always
+    env_file: .env.production
+{% if 'q' in SK %}
+    command: bundle exec sidekiq {{ SK['q'] | join(' ') }} -c 10
+{% else %}
+    command: bundle exec sidekiq
+{% endif %}
+    depends_on:
+      - pgbouncer
+    networks:
+      - external_network
+      - internal_network
+    volumes:
+      - ./public/system:/mastodon/public/system
+      - ./config:/opt/mastodon/config
+    healthcheck:
+      test: ['CMD-SHELL', "ps aux | grep '[s]idekiq\ 6' || false"]
+
+{% endfor %}

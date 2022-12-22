@@ -1,0 +1,27 @@
+[yttrx]
+grafana.yttrx.com ansible_user=root
+tusky.masto.yttrx.com ansible_user=root
+mammut.masto.yttrx.com ansible_user=root
+mail.yttrx.com ansible_user=root
+
+[mastodon]
+#tusky.masto.yttrx.com ansible_user=root
+mammut.masto.yttrx.com ansible_user=root
+
+[sidekiq]
+wooly.masto.yttrx.com ansible_user=root
+
+[frontend]
+wooly.masto.yttrx.com ansible_user=root
+
+[webapp]
+#wooly.masto.yttrx.com ansible_user=root
+
+[yttrx:vars]
+ansible_python_interpreter=/usr/bin/python3
+
+[mta]
+mail.yttrx.com ansible_user=root
+
+[mta:vars]
+ansible_python_interpreter=/usr/bin/python3

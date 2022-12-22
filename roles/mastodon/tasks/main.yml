@@ -1,0 +1,32 @@
+---
+# Setup users etc
+- name: create the mastodon user account
+  user:
+    name: mastodon
+    shell: /bin/bash
+    group: docker
+
+- name: Check if mastodon repo checked out
+  stat: path=/home/mastodon/live
+  register: p
+
+- import_tasks: swap.yml
+
+- import_tasks: repo.yml
+  when: not p.stat.exists
+
+- name: Install statsd mapper
+  template:
+    src: statsd-mapping.yaml.j2
+    dest: /root/statsd-mapping.yml
+
+- name: Install .env.production file
+  template:
+    src: env.production.j2
+    dest: /home/mastodon/live/.env.production
+
+- name: Install docker-compose.yml file
+  template:
+    src: docker-compose.yml.j2
+    dest: /home/mastodon/live/docker-compose.yml
+  notify: "docker-compose up"

@@ -1,0 +1,4 @@
+---
+dependencies:
+  - role: geerlingguy.nginx
+  - role: mastodon # Required for the www root for nginx

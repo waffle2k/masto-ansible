@@ -1,0 +1,22 @@
+---
+- name: Configure yttrx mail server environment
+  hosts: [mta]
+  roles:
+    - role: mta
+
+  handlers:
+    - name: Restart dovecot
+      service:
+        name: dovecot
+        state: restarted
+      listen: "restart services"
+
+    - name: Restart postfix
+      service:
+        name: postfix
+        state: restarted
+      listen: "restart services"
+
+    - name: postmap
+      command: /usr/sbin/postmap /etc/postfix/virtual
+      listen: "postmap"

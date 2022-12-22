@@ -1,0 +1,55 @@
+---
+# Install the requires nginx sites-available
+
+- name: Create nginx cache dir
+  file:
+    path: /data/nginx/cache
+    state: directory
+    owner: www-data
+    group: www-data
+
+- name: Install nginx site files
+  template:
+    src: files.j2
+    dest: /etc/nginx/sites-available/files
+  notify: restart nginx
+
+- name: Install nginx mastodon config
+  template:
+    src: mastodon.j2
+    dest: /etc/nginx/sites-available/mastodon
+  notify: restart nginx
+
+- name: Enable files
+  file:
+    src: /etc/nginx/sites-available/files
+    dest: /etc/nginx/sites-enabled/files
+    state: link
+
+- name: Enable mastodon
+  file:
+    src: /etc/nginx/sites-available/mastodon
+    dest: /etc/nginx/sites-enabled/mastodon
+    state: link
+
+- name: Disable default
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: Copy dmca
+  template:
+    src: dmca
+    dest: /etc/nginx/dmca
+  notify: restart nginx
+
+- name: Copy cloudflare
+  template:
+    src: cloudflare
+    dest: /etc/nginx/cloudflare
+  notify: restart nginx
+
+- name: install certbot
+  package:
+    name: python3-certbot-nginx
+    state: present

@@ -1,0 +1,7 @@
+---
+- name: clone mastodon repo
+  git:
+    repo: https://github.com/mastodon/mastodon.git
+    dest: /home/mastodon/live
+    version: v4.0.2
+
