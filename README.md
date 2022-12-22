@@ -53,6 +53,8 @@ ENV_PRODUCTION:
 swap_space: 1G
 ```
 
+In addition, you'll need to update the `group_vars/all` file and setup the location of your postgres server. This is used by pgbouncer.
+
 ## Configuring sidekiq workers
 
 It's easy to spin up additional worker capacity.  Edit the `hosts` file, and add your new hostnames under the `[sidekiq]` line, then from the terminal, run `ansible-playbook sidekiq.yml`.  This will configure the host with all of the basic `yttrx` role stuff, including shell and nvim niceties, it will install docker, checkout the mastodon github repo, and configure the `docker-compose.yml` & `docker-compose.override.yml` files.
