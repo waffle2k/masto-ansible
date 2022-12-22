@@ -1,3 +1,4 @@
 MASTODON_VERSION: v4.0.2
 REAL_DB_HOST: tusky.masto.yttrx.com
 DB_POOL: 25
+swap_space: 1G

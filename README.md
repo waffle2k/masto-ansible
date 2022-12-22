@@ -30,7 +30,7 @@ ENV_PRODUCTION:
   DB_PORT: 5432
   DB_NAME: mastodon_production
   DB_USER: mastodon
-  DB_PASS: foobar
+  DB_PASS: changeme
   REDIS_HOST: changeme
   REDIS_PORT: 6379
   REDIS_PASSWORD:
