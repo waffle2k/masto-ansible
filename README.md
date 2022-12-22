@@ -1,0 +1,50 @@
+# Installing the dependencies
+
+Run `make` to install the necessary 3rd party roles, namely:
+- geerlingguy.docker
+- geerlingguy.nginx
+- geerlingguy.certbot
+- neovim & oh-my-zsh roles
+
+The last two just make the server environments more akin to how I prefer them to be. It's easy enough to block this out, just edit `roles/yttrx/meta/main.yml` and remove `ansible-role-neovim` and `ansible-role-oh-my-zsh`.
+
+## Configuring your .env.production
+
+Mastodon is configured with the `.env.production` file. This is populated with the hash configured in `roles/mastodon/vars/main.yml`.  This file contains sensitive information such as passwords etc., so it's better if we don't accidentally leak that to github, as such, that file i s in the `.gitignore` file.  I'll talk about how to configure it below.
+
+```
+cat roles/mastodon/vars/main.yml
+---
+ENV_PRODUCTION:
+  LOCAL_DOMAIN: changeme
+  SINGLE_USER_MODE: 'false'
+  SECRET_KEY_BASE: changeme
+  OTP_SECRET: changeme
+  VAPID_PRIVATE_KEY: changeme
+  VAPID_PUBLIC_KEY: changeme
+  DB_HOST: pgbouncer
+  DB_PORT: 5432
+  DB_NAME: mastodon_production
+  DB_USER: mastodon
+  DB_PASS: foobar
+  REDIS_HOST: changeme
+  REDIS_PORT: 6379
+  REDIS_PASSWORD:
+  SMTP_SERVER: changeme
+  SMTP_PORT: 25
+  SMTP_AUTH_METHOD: none
+  SMTP_OPENSSL_VERIFY_MODE: none
+  SMTP_ENABLE_STARTTLS: auto
+  SMTP_FROM_ADDRESS: changeme
+  S3_ENABLED: 'true'
+  S3_PROTOCOL: https
+  S3_BUCKET: changeme
+  S3_REGION: changeme
+  S3_HOSTNAME: changeme
+  S3_ENDPOINT: changeme
+  AWS_ACCESS_KEY_ID: changeme
+  AWS_SECRET_ACCESS_KEY: changeme
+  S3_ALIAS_HOST: changeme
+  STATSD_ADDR: statsd:9125
+swap_space: 1G
+```
