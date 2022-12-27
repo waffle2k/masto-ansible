@@ -1,4 +1,6 @@
 ---
+- import_tasks: swap.yml
+
 - name: Install prometheus node exporter
   package:
     name: prometheus-node-exporter
