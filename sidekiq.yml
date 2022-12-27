@@ -3,12 +3,6 @@
   hosts: [sidekiq]
   roles:
     - role: sidekiq
-  vars:
-    sidekiq:
-      - name: ingresspush
-        q: [ '-q', 'ingress', '-q', 'push',  ]
-      - name: defaultpull
-        q: [ '-q', 'pull', '-q', 'default' ]
 
   handlers:
   - name: Re-up docker containers
@@ -16,5 +10,3 @@
     args:
       chdir: /home/mastodon/live
     listen: "docker-compose up"
-
-
