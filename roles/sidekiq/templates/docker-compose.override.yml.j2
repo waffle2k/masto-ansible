@@ -5,7 +5,7 @@ services:
     restart: always
     env_file: .env.production
 {% if 'q' in SK %}
-    command: bundle exec sidekiq {{ SK['q'] | join(' ') }} -c 10
+    command: bundle exec sidekiq -q {{ SK['q'] | join(' -q ') }} -c 10
 {% else %}
     command: bundle exec sidekiq
 {% endif %}

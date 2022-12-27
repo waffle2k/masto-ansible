@@ -63,13 +63,12 @@ The `docker-compose.yml` file is managed by the `mastodon` role, and will simply
 
 ### Configuring how many sidekiq workers and which queues they'll process
 
-Edit the `sidekiq.yml` file and configure the `sidekiq` var.  The expected format is:
+Edit the `host_vars/$hostname` (where `$hostname` is a name of a host that is going to run sidekiq) file and configure the `sidekiq` var.  The expected format is:
 
 ```
-  vars:
-    sidekiq:
-      - name: ingress-and-stuff
-      - q: [ '-q', 'ingress', '-q', 'default' ]
+sidekiq:
+  - name: ingress-and-stuff
+  - q: [ 'ingress', 'default' ]
 ```
 
 This will create a service called `sidekiq-ingress-and-stuff` with the `ingress` and `default` queues.  To have the default queues, leave the `q` array empty.
