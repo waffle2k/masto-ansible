@@ -36,8 +36,8 @@ server {
   ssl_ciphers HIGH:!MEDIUM:!LOW:!aNULL:!NULL:!SHA; ssl_prefer_server_ciphers on;
   ssl_session_cache shared:SSL:10m;
 
-  ssl_certificate     /etc/letsencrypt/live/{{ ENV_PRODUCTION['LOCAL_DOMAIN'] }}/fullchain.pem;
-  ssl_certificate_key /etc/letsencrypt/live/{{ ENV_PRODUCTION['LOCAL_DOMAIN'] }}/privkey.pem;
+  ssl_certificate     /etc/nginx/ssl/domain.fullchain.pem;
+  ssl_certificate_key /etc/nginx/ssl/domain.privkey.pem;
 
   keepalive_timeout    70;
   sendfile             on;

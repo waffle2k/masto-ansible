@@ -50,7 +50,6 @@ ENV_PRODUCTION:
   AWS_SECRET_ACCESS_KEY: changeme
   S3_ALIAS_HOST: changeme
   STATSD_ADDR: statsd:9125
-swap_space: 1G
 ```
 
 In addition, you'll need to update the `group_vars/all` file and setup the location of your postgres server. This is used by pgbouncer.
@@ -72,3 +71,26 @@ sidekiq:
 ```
 
 This will create a service called `sidekiq-ingress-and-stuff` with the `ingress` and `default` queues.  To have the default queues, leave the `q` array empty.
+
+## Configuring frontend
+
+You must provide two sets of certificates and keys into the directory `roles/frontend/templates` of the names:
+- domain.fullchain.pem
+- domain.privkey.pem
+- cdn.fullchain.pem
+- cdn.privkey.pem
+
+These files can be built from any number of ways, for example in my development environment I have the following:
+```
+#!/bin/bash
+
+sudo certbot certonly -d masto.yttrx.com
+sudo certbot certonly -d files.yttrx.com
+cd $HOME/masto-ansible/roles/frontend/templates
+sudo cp /etc/letsencrypt/live/masto.yttrx.com/fullchain.pem domain.fullchain.pem
+sudo cp /etc/letsencrypt/live/masto.yttrx.com/privkey.pem domain.privkey.pem
+sudo cp /etc/letsencrypt/live/files.yttrx.com/fullchain.pem cdn.fullchain.pem
+sudo cp /etc/letsencrypt/live/files.yttrx.com/fullchain.pem cdn.fullchain.pem
+sudo cp /etc/letsencrypt/live/files.yttrx.com/privkey.pem cdn.privkey.pem
+chmod ga+r *.pem
+```

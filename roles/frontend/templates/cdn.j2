@@ -22,8 +22,8 @@ server {
 
   include /etc/nginx/cloudflare;
 
-  ssl_certificate     /etc/letsencrypt/live/{{ ENV_PRODUCTION['S3_ALIAS_HOST'] }}/fullchain.pem;
-  ssl_certificate_key /etc/letsencrypt/live/{{ ENV_PRODUCTION['S3_ALIAS_HOST'] }}/privkey.pem;
+  ssl_certificate     /etc/nginx/ssl/cdn.fullchain.pem;
+  ssl_certificate_key /etc/nginx/ssl/cdn.privkey.pem;
 
   access_log /var/log/nginx/{{ ENV_PRODUCTION['S3_ALIAS_HOST'] }}.access.log files_cache;
   error_log /var/log/nginx/{{ ENV_PRODUCTION['S3_ALIAS_HOST'] }}.error.log;

@@ -1,2 +1,6 @@
 roles/mastodon/vars/main.yml
 host_vars/
+roles/frontend/templates/cdn.fullchain.pem
+roles/frontend/templates/cdn.privkey.pem
+roles/frontend/templates/domain.fullchain.pem
+roles/frontend/templates/domain.privkey.pem

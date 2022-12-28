@@ -1,1 +1,9 @@
 ---
+letsencrypt_cert:
+  name: yttrx
+  domains:
+    - masto.yttrx.com
+    - files.yttrx.com
+  challenge: dns
+  services:
+    - nginx
