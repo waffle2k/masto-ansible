@@ -3,9 +3,6 @@
   hosts: [frontend]
   roles:
     - role: frontend
-  vars:
-    webapp_hosts:
-      - tusky.masto.yttrx.com
 
   handlers:
   - name: Re-up docker containers

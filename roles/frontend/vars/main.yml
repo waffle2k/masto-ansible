@@ -1,1 +1,3 @@
 ---
+# The hosts where nginx proxies ports 3000 and 4000 to
+#webapp_hosts: []
