@@ -1,4 +1,0 @@
-MASTODON_VERSION: v4.0.2
-REAL_DB_HOST: tusky.masto.yttrx.com
-DB_POOL: 25
-letsencrypt_account_email: waffles@yttrx.com
