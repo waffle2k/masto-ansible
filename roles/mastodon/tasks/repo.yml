@@ -3,5 +3,5 @@
   git:
     repo: https://github.com/mastodon/mastodon.git
     dest: /home/mastodon/live
-    version: v4.0.2
+    version: "{{ MASTODON_VERSION }}"
 
