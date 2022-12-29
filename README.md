@@ -4,9 +4,10 @@ Run `make` to install the necessary 3rd party roles, namely:
 - geerlingguy.docker
 - geerlingguy.nginx
 - geerlingguy.certbot
-- neovim & oh-my-zsh roles
+- oh-my-zsh
+roles
 
-The last two just make the server environments more akin to how I prefer them to be. It's easy enough to block this out, just edit `roles/yttrx/meta/main.yml` and remove `ansible-role-neovim` and `ansible-role-oh-my-zsh`.
+The last role just make the server environments more akin to how I prefer them to be. It's easy enough to block this out, just edit `roles/yttrx/meta/main.yml` and remove `ansible-role-oh-my-zsh`.
 
 ## Unsupported
 

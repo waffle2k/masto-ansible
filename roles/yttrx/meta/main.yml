@@ -1,6 +1,5 @@
 ---
 dependencies:
-  - role: ansible-role-neovim
   - role: geerlingguy.docker
   - role: ansible-role-oh-my-zsh
     vars:
