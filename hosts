@@ -8,7 +8,7 @@ wooly.masto.yttrx.com ansible_user=root
 #tusky.masto.yttrx.com ansible_user=root
 
 [sidekiq]
-#wooly.masto.yttrx.com ansible_user=root
+wooly.masto.yttrx.com ansible_user=root
 
 [frontend]
 #wooly.masto.yttrx.com ansible_user=root

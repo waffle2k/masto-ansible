@@ -6,21 +6,6 @@
     name: prometheus-node-exporter
     state: present
 
-- name: Create nvim config dir
-  file:
-    path: /root/.config/nvim
-    state: directory
-
-- name: Install nvim config file
-  template:
-    src: templates/nvim/init.vim.j2
-    dest: /root/.config/nvim/init.vim
-
-- name: Install nvim plugins
-  command: nvim --headless +PluginInstall +qall
-  args:
-    creates: /root/.vim/bundle/
-
 - name: Clone fzf
   git:
     repo: https://github.com/junegunn/fzf
