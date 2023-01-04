@@ -3,3 +3,10 @@
   template:
     src: trim_storage.sh.j2
     dest: /usr/local/bin/trim_storage.sh
+
+- name: Create cronjob for trimming storage
+  ansible.builtin.cron:
+    name: TRIMSTORAGE
+    job: /usr/local/bin/trim_storage.sh
+    minute: "0"
+    hour: "*/6"
