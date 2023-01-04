@@ -23,6 +23,16 @@
     src: env.production.j2
     dest: /home/mastodon/live/.env.production
 
+- name: Install docker-compose.sh file
+  template:
+    src: docker-compose.sh.j2
+    dest: /usr/local/bin/docker-compose.sh
+
+- name: Set permissions of docker-compose.sh
+  file:
+    path: /usr/local/bin/docker-compose.sh
+    mode: '0755'
+
 - name: Install docker-compose.yml file
   template:
     src: docker-compose.yml.j2

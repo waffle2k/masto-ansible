@@ -6,7 +6,7 @@
 
   handlers:
   - name: Re-up docker containers
-    command: docker-compose up -d
+    command: /usr/local/bin/docker-compose.sh
     args:
       chdir: /home/mastodon/live
     listen: "docker-compose up"

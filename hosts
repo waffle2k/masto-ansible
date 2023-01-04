@@ -15,7 +15,7 @@ wooly.masto.yttrx.com
 wooly.masto.yttrx.com
 
 [webapp]
-#wooly.masto.yttrx.com
+wooly.masto.yttrx.com
 
 [yttrx:vars]
 ansible_python_interpreter=/usr/bin/python3
