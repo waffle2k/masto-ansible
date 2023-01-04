@@ -1,0 +1,5 @@
+---
+- name: Install redis server
+  package:
+    name: redis-server
+    state: present
