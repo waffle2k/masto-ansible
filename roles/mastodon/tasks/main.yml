@@ -29,7 +29,7 @@
     dest: /home/mastodon/live/docker-compose.yml
   notify: "docker-compose up"
 
-- import_tasks: redis.yaml
+- import_tasks: redis.yml
   when: ansible_hostname == REDIS_HOST
 
 - import_tasks: maintenance.yml
