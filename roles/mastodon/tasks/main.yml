@@ -30,3 +30,4 @@
   notify: "docker-compose up"
 
 - import_tasks: maintenance.yml
+  when: ansible_hostname == MAINTENANCE_HOST
