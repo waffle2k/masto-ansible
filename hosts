@@ -4,10 +4,6 @@ tusky.masto.yttrx.com ansible_user=root
 mail.yttrx.com ansible_user=root
 wooly.masto.yttrx.com
 
-[mastodon]
-#tusky.masto.yttrx.com ansible_user=root
-wooly.masto.ytrrx.com
-
 [sidekiq]
 wooly.masto.yttrx.com
 

@@ -1,6 +1,0 @@
----
-- name: Configure yttrx mastodon environment
-  hosts: [mastodon]
-  roles:
-    - role: mastodon
-
