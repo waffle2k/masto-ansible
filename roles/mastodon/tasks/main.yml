@@ -28,3 +28,5 @@
     src: docker-compose.yml.j2
     dest: /home/mastodon/live/docker-compose.yml
   notify: "docker-compose up"
+
+- import_tasks: maintenance.yml

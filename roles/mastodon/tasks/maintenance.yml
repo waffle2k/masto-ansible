@@ -1,0 +1,5 @@
+---
+- name: Install storage trimmer
+  template:
+    src: trim_storage.sh.j2
+    dest: /usr/local/bin/trim_storage.sh
