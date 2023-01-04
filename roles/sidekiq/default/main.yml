@@ -2,7 +2,3 @@
 sidekiq:
   - name: default
     q: [ 'push', 'pull', 'default', 'ingress', 'mailer', 'scheduler' ]
-
-sidekiq_helper:
-  - name: helper
-    q: [ 'push', 'pull', 'ingress' ]
