@@ -27,6 +27,18 @@ services:
       - 'DB_USER={{ ENV_PRODUCTION["DB_USER"] }}'
       - 'DB_PASSWORD={{ ENV_PRODUCTION["DB_PASS"] }}'
       - 'SERVER_TLS_SSLMODE=prefer'
+  redis:
+    restart: always
+    image: redis:7-alpine
+    networks:
+      - internal_network
+      - external_network
+    ports:
+      - 6379:6379
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+    volumes:
+      - ./redis:/data
 
 networks:
   external_network:
