@@ -39,6 +39,16 @@
     dest: /home/mastodon/live/docker-compose.yml
   notify: "docker-compose up"
 
+- name: Install feed rebuild script
+  template:
+    src: feeds-build.sh.j2
+    dest: /usr/local/bin/feeds-build.sh 
+
+- name: Set permission of feeds-build.sh
+  file:
+    path: /usr/local/bin/feeds-build.sh
+    mode: '0755'
+
 - import_tasks: redis.yml
   when: ansible_hostname == REDIS_HOST
 

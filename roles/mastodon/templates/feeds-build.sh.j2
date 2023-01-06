@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# If we run this from cron, remove change to "docker exec -i" as we don't have an attached terminal
+docker exec -it live-web-1 bin/tootctl feeds build --all
