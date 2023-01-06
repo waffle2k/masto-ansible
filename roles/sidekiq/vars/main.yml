@@ -1,0 +1,4 @@
+---
+sidekiq:
+  - name: default
+    q: [ 'push', 'pull', 'default', 'ingress', 'mailer', 'scheduler' ]

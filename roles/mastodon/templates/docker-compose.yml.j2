@@ -22,6 +22,7 @@ services:
       - external_network
     environment:
       - 'DB_HOST={{ REAL_DB_HOST }}'
+      - 'DB_PORT={{ REAL_DB_PORT }}'
       - 'DB_NAME={{ ENV_PRODUCTION["DB_NAME"] }}'
       - 'DB_USER={{ ENV_PRODUCTION["DB_USER"] }}'
       - 'DB_PASSWORD={{ ENV_PRODUCTION["DB_PASS"] }}'
