@@ -1,4 +1,4 @@
 ---
 sidekiq:
   - name: default
-    q: [ 'push', 'pull', 'default', 'ingress', 'mailer', 'scheduler' ]
+    q: [ 'push', 'pull', 'default', 'ingress', 'mailers', 'scheduler' ]
