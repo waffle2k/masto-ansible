@@ -3,7 +3,19 @@
     name: vm.overcommit_memory
     value: '1'
 
+- name: Install system redis
+  package:
+    name: redis-server
+    state: present
+
 - name: Set redis.conf
   copy:
-    dest: /home/mastodon/live/redis/redis.conf
-    src: redis.conf
+    dest: /etc/redis/redis.conf
+    src: redis-6.conf
+  register: service_conf
+
+- name: Restart redis
+  service:
+    name: redis-server
+    state: restarted
+  when: service_conf.changed
