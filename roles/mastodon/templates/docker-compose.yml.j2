@@ -27,9 +27,11 @@ services:
       - 'DB_USER={{ ENV_PRODUCTION["DB_USER"] }}'
       - 'DB_PASSWORD={{ ENV_PRODUCTION["DB_PASS"] }}'
       - 'SERVER_TLS_SSLMODE=prefer'
+{% if RUN_REDIS is defined %}
   redis:
     restart: always
-    image: redis:7-alpine
+    image: redis:7
+    command: redis-server /data/redis.conf
     networks:
       - internal_network
       - external_network
@@ -39,6 +41,7 @@ services:
       test: ['CMD', 'redis-cli', 'ping']
     volumes:
       - ./redis:/data
+{% endif %}
 
 networks:
   external_network:

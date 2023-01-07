@@ -1,5 +1,9 @@
----
-- name: Install redis server
-  package:
-    name: redis-server
-    state: present
+- name: Set overcommit memory
+  sysctl:
+    name: vm.overcommit_memory
+    value: '1'
+
+- name: Set redis.conf
+  copy:
+    dest: /home/mastodon/live/redis/redis.conf
+    src: redis.conf

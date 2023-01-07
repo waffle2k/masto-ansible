@@ -49,8 +49,9 @@
     path: /usr/local/bin/feeds-build.sh
     mode: '0755'
 
-- import_tasks: redis.yml
-  when: ansible_hostname == REDIS_HOST
+- name: Configure redis
+  import_tasks: redis.yml
+  when: RUN_REDIS is defined and RUN_REDIS
 
 - import_tasks: maintenance.yml
   when: ansible_hostname == MAINTENANCE_HOST
