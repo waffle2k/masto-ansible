@@ -1,6 +1,0 @@
----
-- name: Configure yttrx server environment
-  hosts: [yttrx]
-  roles:
-    - role: yttrx
-
