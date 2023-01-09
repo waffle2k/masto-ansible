@@ -1,10 +1,8 @@
 [yttrx]
-grafana.yttrx.com ansible_user=root
-tusky.masto.yttrx.com ansible_user=root
-mail.yttrx.com ansible_user=root
+tusky.masto.yttrx.com
 wooly.masto.yttrx.com
 
-[sidekiq]
+[mastodon]
 wooly.masto.yttrx.com
 
 [frontend]
@@ -13,11 +11,8 @@ wooly.masto.yttrx.com
 [webapp]
 wooly.masto.yttrx.com
 
+[sidekiq]
+wooly.masto.yttrx.com
+
 [yttrx:vars]
-ansible_python_interpreter=/usr/bin/python3
-
-[mta]
-mail.yttrx.com ansible_user=root
-
-[mta:vars]
 ansible_python_interpreter=/usr/bin/python3

@@ -1,0 +1,30 @@
+---
+- name: Configure yttrx mastodon server
+  hosts: [mastodon]
+  vars:
+    first_install: False
+    install_sidekiq: False
+    install_webapp: False
+    install_frontend: False
+
+  roles:
+    - when: first_install | bool
+      role: yttrx
+      tags:
+        - firstinstall
+
+    - role: mastodon
+    
+    - when: install_sidekiq| bool
+      role: sidekiq
+    - when: install_webapp | bool
+      role: webapp
+    - when: install_frontend | bool
+      role: frontend
+
+  handlers:
+  - name: Re-up docker containers
+    command: /usr/local/bin/docker-compose.sh
+    args:
+      chdir: /home/mastodon/live
+    listen: "docker-compose up"

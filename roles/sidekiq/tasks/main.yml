@@ -1,6 +1,9 @@
 ---
   - name: Configure docker-compose.override.yml
     template:
-      src: docker-compose.override.yml.j2
+      src: docker-compose.sidekiq.yml.j2
       dest: /home/mastodon/live/docker-compose.sidekiq.yml
     notify: "docker-compose up"
+    tags:
+      - configure
+      - sidekiq

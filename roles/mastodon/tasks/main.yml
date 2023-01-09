@@ -5,6 +5,8 @@
     name: mastodon
     shell: /bin/bash
     group: docker
+  tags:
+    - install
 
 - name: Check if mastodon repo checked out
   stat: path=/home/mastodon/live
@@ -14,19 +16,25 @@
   when: not p.stat.exists
 
 - name: Install statsd mapper
-  template:
-    src: statsd-mapping.yaml.j2
+  copy:
+    src: statsd-mapping.yaml
     dest: /root/statsd-mapping.yml
+  tags:
+    - install
 
 - name: Install .env.production file
   template:
     src: env.production.j2
     dest: /home/mastodon/live/.env.production
+  tags:
+    - configure
 
 - name: Install docker-compose.sh file
-  template:
-    src: docker-compose.sh.j2
+  copy:
+    src: docker-compose.sh
     dest: /usr/local/bin/docker-compose.sh
+  tags:
+    - install
 
 - name: Set permissions of docker-compose.sh
   file:
@@ -37,12 +45,16 @@
   template:
     src: docker-compose.yml.j2
     dest: /home/mastodon/live/docker-compose.yml
+  tags:
+    - configure
   notify: "docker-compose up"
 
 - name: Install feed rebuild script
   template:
     src: feeds-build.sh.j2
     dest: /usr/local/bin/feeds-build.sh 
+  tags:
+    - install
 
 - name: Set permission of feeds-build.sh
   file:
@@ -54,4 +66,4 @@
   when: RUN_REDIS is defined and RUN_REDIS
 
 - import_tasks: maintenance.yml
-  when: ansible_hostname == MAINTENANCE_HOST
+  when: RUN_CRONS is defined and RUN_CRONS

@@ -1,8 +1,19 @@
 ---
 - name: Install storage trimmer
-  template:
-    src: trim_storage.sh.j2
+  copy:
+    src: trim_storage.sh
     dest: /usr/local/bin/trim_storage.sh
+  tags:
+    - install
+  register: trim_storage
+
+- name: Set permissions on trim_storage.sh
+  file:
+    path: /usr/local/bin/trim_storage.sh
+    mode: '0755'
+  tags:
+    - install
+  when: trim_storage.changed
 
 - name: Create cronjob for trimming storage
   ansible.builtin.cron:
@@ -10,3 +21,21 @@
     job: /usr/local/bin/trim_storage.sh
     minute: "0"
     hour: "*/6"
+  tags:
+    - configure
+
+- name: Install image puller
+  copy:
+    src: pull-images.sh
+    dest: /usr/local/bin/pull-images.sh
+  tags:
+    - install
+  register: pull_images
+
+- name: Set permissions on pull-images.sh
+  file:
+    path: /usr/local/bin/pull-images.sh
+    mode: '0755'
+  tags:
+    - install
+  when: pull_images.changed

@@ -7,41 +7,55 @@
     state: directory
     owner: www-data
     group: www-data
+  tags:
+    - install
 
-- name: Install nginx site cdn
+- name: Configure nginx site cdn
   template:
     src: cdn.j2
     dest: /etc/nginx/sites-available/cdn
   notify: restart nginx
+  tags:
+    - configure
 
-- name: Install nginx mastodon config
+- name: Configure nginx mastodon config
   template:
     src: mastodon.j2
     dest: /etc/nginx/sites-available/mastodon
   notify: restart nginx
+  tags:
+    - configure
 
 - name: Enable cdn
   file:
     src: /etc/nginx/sites-available/cdn
     dest: /etc/nginx/sites-enabled/cdn
     state: link
+  tags:
+    - install
 
 - name: Enable mastodon
   file:
     src: /etc/nginx/sites-available/mastodon
     dest: /etc/nginx/sites-enabled/mastodon
     state: link
+  tags:
+    - install
 
 - name: Disable default
   file:
     path: /etc/nginx/sites-enabled/default
     state: absent
+  tags:
+    - install
 
 - name: Copy dmca
   template:
     src: dmca
     dest: /etc/nginx/dmca
   notify: restart nginx
+  tags:
+    - install
 
 - name: Prep SSL directory
   file:
@@ -49,30 +63,41 @@
     state: directory
     owner: www-data
     group: www-data
+  tags:
+    - install
 
 - name: Install mastodon domain SSL certificate
   template:
     src: domain.fullchain.pem
     dest: /etc/nginx/ssl/domain.fullchain.pem
+  tags:
+    - install
 
 - name: Install mastodon domain ssl key
   template:
     src: domain.privkey.pem
     dest: /etc/nginx/ssl/domain.privkey.pem
+  tags:
+    - install
 
 - name: Install mastodon CDN SSL certificate
   template:
     src: cdn.fullchain.pem
     dest: /etc/nginx/ssl/cdn.fullchain.pem
+  tags:
+    - install
 
 - name: Install mastodon CDN ssl key
   template:
     src: cdn.privkey.pem
     dest: /etc/nginx/ssl/cdn.privkey.pem
+  tags:
+    - install
 
 - name: Copy cloudflare
   template:
     src: cloudflare
     dest: /etc/nginx/cloudflare
   notify: restart nginx
-
+  tags:
+    - install

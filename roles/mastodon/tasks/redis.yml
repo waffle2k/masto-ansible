@@ -2,17 +2,26 @@
   sysctl:
     name: vm.overcommit_memory
     value: '1'
+  tags:
+    - redis
 
 - name: Install system redis
   package:
     name: redis-server
     state: present
+  tags:
+    - install
+    - redis
 
 - name: Set redis.conf
   copy:
     dest: /etc/redis/redis.conf
     src: redis-6.conf
   register: service_conf
+  tags:
+    - install
+    - configure
+    - redis
 
 - name: Restart redis
   service:

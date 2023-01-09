@@ -3,7 +3,6 @@
 Run `make` to install the necessary 3rd party roles, namely:
 - geerlingguy.docker
 - geerlingguy.nginx
-- geerlingguy.certbot
 - oh-my-zsh
 roles
 
@@ -11,7 +10,7 @@ The last role just make the server environments more akin to how I prefer them t
 
 ## Unsupported
 
-This currently doesn't manage anything related to your redis or postgres work.  I'll get to that later, but right now the redis and postgres portions are the oldest parts of my manually installed mastodon instance, and I am not ready to tear that down.
+This currently doesn't manage anything related to your postgres work.  I'll get to that later, but right now the postgres portion is the oldest parts of my manually installed mastodon instance, and I am not ready to tear that down.
 
 ## Configuring your .env.production
 
@@ -55,6 +54,34 @@ ENV_PRODUCTION:
 
 In addition, you'll need to update the `group_vars/all` file and setup the location of your postgres server. This is used by pgbouncer.
 
+## Configuring group_vars
+
+Populate the `group_vars/all` file with something similar to:
+
+``` bash
+MASTODON_VERSION: v4.0.2
+REAL_DB_HOST: hostname-of-your-database
+REAL_DB_PORT: port-of-your-database
+DB_POOL: 25
+```
+
+## Configure your frontends to point to the right webapp
+For each of your frontend hosts, create a file called `host_vars/$HOSTNAME` (where `$HOSTNAME` is the name of each of your frontend machines) and place into it:
+
+``` bash
+webapp_hosts:
+  - HOST_OF_WEBAPP
+  - ANOTHER_HOST_OF_WEBAPP
+```
+for however many webapp (web & streaming) hosts you have.
+
+## Configuring redis
+If you want to install redis on a particular host, create an entry for it under `host_vars/$HOSTNAME` and set the variable:
+
+``` bash
+RUN_REDIS: True
+```
+
 ## Configuring sidekiq workers
 
 It's easy to spin up additional worker capacity.  Edit the `hosts` file, and add your new hostnames under the `[sidekiq]` line, then from the terminal, run `ansible-playbook sidekiq.yml`.  This will configure the host with all of the basic `yttrx` role stuff, including shell and nvim niceties, it will install docker, checkout the mastodon github repo, and configure the `docker-compose.yml` & `docker-compose.override.yml` files.
@@ -65,7 +92,7 @@ The `docker-compose.yml` file is managed by the `mastodon` role, and will simply
 
 Edit the `host_vars/$hostname` (where `$hostname` is a name of a host that is going to run sidekiq) file and configure the `sidekiq` var.  The expected format is:
 
-```
+``` yaml
 sidekiq:
   - name: ingress-and-stuff
   - q: [ 'ingress', 'default' ]

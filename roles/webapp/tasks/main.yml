@@ -4,3 +4,6 @@
       src: docker-compose.override.yml.j2
       dest: /home/mastodon/live/docker-compose.webapp.yml
     notify: "docker-compose up"
+    tags:
+      - configure
+      - webapp
