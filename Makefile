@@ -26,5 +26,5 @@ webapp-config:
 
 sidekiq:
 	ansible-playbook mastodon.yml --tags install,configure --limit 'sidekiq' --extra-vars "install_sidekiq=True"
-sidekiq-conifig:
+sidekiq-config:
 	ansible-playbook mastodon.yml --tags configure --limit 'sidekiq' --extra-vars "install_sidekiq=True"
