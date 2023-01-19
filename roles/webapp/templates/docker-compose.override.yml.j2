@@ -3,7 +3,7 @@ services:
   web:
     logging:
       driver: journald
-    image: tootsuite/mastodon:v4.0.2
+    image: tootsuite/mastodon:{{ MASTODON_VERSION }}
     restart: always
     env_file: .env.production
     command: bash -c "rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p 3000"
@@ -25,7 +25,7 @@ services:
   streaming:
     logging:
       driver: journald
-    image: tootsuite/mastodon:v4.0.2
+    image: tootsuite/mastodon:{{ MASTODON_VERSION }}
     restart: always
     env_file: .env.production
     command: node ./streaming
