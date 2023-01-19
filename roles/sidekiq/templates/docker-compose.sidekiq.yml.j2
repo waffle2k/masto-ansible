@@ -1,6 +1,8 @@
 services:
 {% for SK in sidekiq %}
   sidekiq-{{ SK['name'] }}:
+    logging:
+      driver: journald
     image: tootsuite/mastodon:{{ MASTODON_VERSION }}
     restart: always
     env_file: .env.production

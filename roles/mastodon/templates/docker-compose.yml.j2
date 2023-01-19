@@ -2,6 +2,8 @@ version: '3'
 services:
 {% if ENV_PRODUCTION['STATSD_ADDR'] is defined %}
   statsd:
+    logging:
+      driver: journald
     restart: always
     image: prom/statsd-exporter
     command: --statsd.mapping-config=/tmp/statsd_mapping.yml
@@ -15,6 +17,8 @@ services:
       - "127.0.0.1:9125:9125"
 {% endif %}
   pgbouncer:
+    logging:
+      driver: journald
     restart: always
     image: edoburu/pgbouncer
     networks:

@@ -1,6 +1,8 @@
 version: '3'
 services:
   web:
+    logging:
+      driver: journald
     image: tootsuite/mastodon:v4.0.2
     restart: always
     env_file: .env.production
@@ -21,6 +23,8 @@ services:
       - ./public/system:/mastodon/public/system
 
   streaming:
+    logging:
+      driver: journald
     image: tootsuite/mastodon:v4.0.2
     restart: always
     env_file: .env.production
