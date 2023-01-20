@@ -6,4 +6,4 @@ LOGFILE=/tmp/media_remove.log
 
 REMOVED=$(/usr/bin/docker exec -i $DOCKER_IMAGE /opt/mastodon/bin/tootctl media remove --days $DAYS 2>&1 | egrep -e '^Removed')
 
-echo "$(date +%I): $REMOVED" >> $LOGFILE
+echo "$(date): $REMOVED" >> $LOGFILE
