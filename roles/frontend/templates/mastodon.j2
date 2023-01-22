@@ -60,6 +60,12 @@ server {
     try_files $uri @proxy;
   }
 
+  # support ~waffles type homedir redirects
+  location ~ ^/~(.+)?$ {
+    rewrite ^/(.*) https://home.yttrx.com/$1 permanent;
+  }
+
+
   # WITH S3
   location ~ ^/(emoji|packs) {
     add_header Cache-Control "public, max-age=31536000, immutable";
