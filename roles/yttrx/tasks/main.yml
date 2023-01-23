@@ -12,3 +12,5 @@
     dest: /root/fzf
     clone: yes
     update: yes
+
+- import_tasks: nvim.yml

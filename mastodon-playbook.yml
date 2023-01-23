@@ -2,17 +2,11 @@
 - name: Configure yttrx mastodon server
   hosts: [mastodon]
   vars:
-    first_install: False
     install_sidekiq: False
     install_webapp: False
     install_frontend: False
 
   roles:
-    - when: first_install | bool
-      role: yttrx
-      tags:
-        - firstinstall
-
     - role: mastodon
     
     - when: install_sidekiq| bool

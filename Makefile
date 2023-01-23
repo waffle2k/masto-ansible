@@ -5,6 +5,9 @@ install:
 upgrade:
 	ansible-playbook upgrade-playbook.yml
 
+yttrx:
+	ansible-playbook yttrx-playbook.yml 
+
 mastodon-first-install:
 	ansible-playbook mastodon-playbook.yml --tags install,configure --extra-vars "first_install=True"
 
