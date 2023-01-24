@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DAYS=5
+DAYS=14
 DOCKER_IMAGE=live-web-1
 LOGFILE=/tmp/media_remove.log
 
