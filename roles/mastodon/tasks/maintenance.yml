@@ -39,3 +39,17 @@
   tags:
     - install
   when: pull_images.changed
+
+- name: Install tootctl wrapper script
+  copy:
+    src: tootctl
+    dest: /usr/local/bin/tootctl
+  tags:
+    - install
+
+- name: Set permissions on tootctl
+  file:
+    path: /usr/local/bin/tootctl
+    mode: '0755'
+  tags:
+    - install
