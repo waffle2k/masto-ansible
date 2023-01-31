@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # Wrap around a docker command to invoke `tootctl`
-docker exec -it $(docker ps -f name=web -q | head -n1) bin/tootctl $*
+docker exec -it $(docker ps -f name=web -q | head -n1) bin/tootctl $@

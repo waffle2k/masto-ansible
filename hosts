@@ -1,6 +1,8 @@
 [yttrx]
 tusky.masto.yttrx.com
 wooly.masto.yttrx.com
+grafana.yttrx.com
+mail.yttrx.com
 
 [mastodon]
 wooly.masto.yttrx.com

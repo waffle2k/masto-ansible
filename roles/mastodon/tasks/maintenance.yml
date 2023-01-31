@@ -53,3 +53,14 @@
     mode: '0755'
   tags:
     - install
+
+- name: Create cronjob for tootctl accounts prune
+  ansible.builtin.cron:
+    name: tootctl accounts prune
+    job: /usr/local/bin/tootctl accounts prune
+    weekday: "1"
+    minute: "0"
+    hour: "5"
+  tags:
+    - configure
+
