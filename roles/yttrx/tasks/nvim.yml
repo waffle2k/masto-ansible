@@ -40,6 +40,16 @@
     name: unzip
     state: present
 
+- name: install clang
+  package:
+    name: clang
+    state: present
+
+- name: install npm
+  package:
+    name: npm
+    state: present
+
 - name: Install python3.10-venv
   package:
     name: python3.10-venv
