@@ -1,5 +1,5 @@
 ---
 - name: Configure yttrx mastodon server
-  hosts: [mastodon]
+  hosts: [yttrx]
   roles:
     - role: yttrx
