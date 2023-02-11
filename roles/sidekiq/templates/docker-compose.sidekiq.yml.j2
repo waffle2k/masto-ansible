@@ -9,7 +9,7 @@ services:
 {% if 'q' in SK %}
     command: bundle exec sidekiq -q {{ SK['q'] | join(' -q ') }} -c 10
 {% else %}
-    command: bundle exec sidekiq
+    command: bundle exec sidekiq -c 10
 {% endif %}
     depends_on:
       - pgbouncer
