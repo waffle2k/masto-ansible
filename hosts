@@ -1,20 +1,20 @@
 [yttrx]
 tusky.masto.yttrx.com
-wooly.masto.yttrx.com
+mammoth.masto.yttrx.com
 grafana.yttrx.com
 mail.yttrx.com
 
 [mastodon]
-wooly.masto.yttrx.com
+mammoth.masto.yttrx.com
 
 [frontend]
-wooly.masto.yttrx.com
+mammoth.masto.yttrx.com
 
 [webapp]
-wooly.masto.yttrx.com
+mammoth.masto.yttrx.com
 
 [sidekiq]
-wooly.masto.yttrx.com
+mammoth.masto.yttrx.com
 
 [yttrx:vars]
 ansible_python_interpreter=/usr/bin/python3
