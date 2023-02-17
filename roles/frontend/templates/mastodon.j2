@@ -3,15 +3,17 @@ map $http_upgrade $connection_upgrade {
   ''      close;
 }
 
+{% for server in ENV_PRODUCTION['ALTERNATE_DOMAINS'] | split(",") %}
 server {
   listen 80;
   listen [::]:80;
-  server_name {{ ENV_PRODUCTION['LOCAL_DOMAIN'] }}
+  server_name {{ server }}
   root /home/mastodon/live/public;
   # Useful for Let's Encrypt
   location /.well-known/acme-challenge/ { allow all; }
   location / { return 301 https://$host$request_uri; }
 }
+{% endfor %}
 
 upstream webbackend {
 {% for server in webapp_hosts %}
@@ -25,10 +27,11 @@ upstream streamingbackend {
 {% endfor %}
 }
 
+{% for server in ENV_PRODUCTION['ALTERNATE_DOMAINS'] | split(",") %}
 server {
   listen 443 ssl http2;
   listen [::]:443 ssl http2;
-  server_name {{ ENV_PRODUCTION['LOCAL_DOMAIN'] }};
+  server_name {{ server }};
 
   include /etc/nginx/cloudflare;
 
@@ -121,3 +124,4 @@ server {
 
   error_page 500 501 502 503 504 /500.html;
 }
+{% endfor %}
