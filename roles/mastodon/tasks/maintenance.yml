@@ -23,6 +23,7 @@
     hour: "*/6"
   tags:
     - configure
+  when: TRIM_STORAGE is defined and TRIM_STORAGE
 
 - name: Install image puller
   copy:
@@ -63,4 +64,4 @@
     hour: "5"
   tags:
     - configure
-
+  when: PRUNE_ACCOUNTS is defined and PRUNE_ACCOUNTS
