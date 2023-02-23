@@ -59,6 +59,12 @@ server {
 
   add_header Strict-Transport-Security "max-age=31536000";
 
+{% if PREFERRED_ALT_DOMAIN and PREFERRED_ALT_DOMAIN != server %}
+  location = / {
+    rewrite / https://{{ PREFERRED_ALT_DOMAIN }}/ redirect;
+  }
+{% endif %}
+
   location / {
     try_files $uri @proxy;
   }
