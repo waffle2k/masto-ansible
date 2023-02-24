@@ -63,8 +63,11 @@ server {
   location = / {
     rewrite / https://{{ PREFERRED_ALT_DOMAIN }}/ redirect;
   }
-{% endif %}
+  location ~ ^/@(.+)?$ {
+    rewrite ^/(@.*) https://{{ PREFERRED_ALT_DOMAIN }}/$1 permanent;
+  }
 
+{% endif %}
   location / {
     try_files $uri @proxy;
   }

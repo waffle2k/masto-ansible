@@ -12,7 +12,7 @@ log_format files_cache '$remote_addr - $upstream_cache_status [$time_local]  '
                     '"$request" $status $body_bytes_sent '
                     '"$http_referer" "$http_user_agent"';
 
-proxy_cache_path /data/nginx/cache keys_zone=mycache:50m inactive=3d;
+proxy_cache_path /data/nginx/cache keys_zone=mycache:50m inactive=7d;
 
 server {
   listen 443 ssl http2;
@@ -25,8 +25,8 @@ server {
   ssl_certificate     /etc/nginx/ssl/cdn.fullchain.pem;
   ssl_certificate_key /etc/nginx/ssl/cdn.privkey.pem;
 
-  access_log /var/log/nginx/{{ ENV_PRODUCTION['S3_ALIAS_HOST'] }}.access.log files_cache;
-  error_log /var/log/nginx/{{ ENV_PRODUCTION['S3_ALIAS_HOST'] }}.error.log;
+  access_log /var/log/nginx/cdn.access.log files_cache;
+  error_log /var/log/nginx/cdn.error.log;
 
   proxy_cache mycache;
   keepalive_timeout 30;
