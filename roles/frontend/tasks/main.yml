@@ -67,29 +67,29 @@
     - install
 
 - name: Install mastodon domain SSL certificate
-  template:
-    src: domain.fullchain.pem
+  copy:
+    src: wildcard.fullchain.pem
     dest: /etc/nginx/ssl/domain.fullchain.pem
   tags:
     - install
 
 - name: Install mastodon domain ssl key
-  template:
-    src: domain.privkey.pem
+  copy:
+    src: wildcard.privkey.pem
     dest: /etc/nginx/ssl/domain.privkey.pem
   tags:
     - install
 
 - name: Install mastodon CDN SSL certificate
-  template:
-    src: cdn.fullchain.pem
+  copy:
+    src: wildcard.fullchain.pem
     dest: /etc/nginx/ssl/cdn.fullchain.pem
   tags:
     - install
 
 - name: Install mastodon CDN ssl key
-  template:
-    src: cdn.privkey.pem
+  copy:
+    src: wildcard.privkey.pem
     dest: /etc/nginx/ssl/cdn.privkey.pem
   tags:
     - install
